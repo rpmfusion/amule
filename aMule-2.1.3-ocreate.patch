@@ -1,0 +1,12 @@
+diff -up aMule-2.1.3/src/FileFunctions.cpp.ocreate aMule-2.1.3/src/FileFunctions.cpp
+--- aMule-2.1.3/src/FileFunctions.cpp.ocreate	2008-04-08 03:27:56.000000000 +0200
++++ aMule-2.1.3/src/FileFunctions.cpp	2008-04-08 03:32:13.000000000 +0200
+@@ -599,7 +599,7 @@ FSCheckResult DoCheckFileSystem(const wx
+ 	wxString fullName = JoinPaths(path, wxT(":"));
+ 
+ 	// Try to open the file, without overwriting existing files.
+-	int fd = open(fullName.fn_str(), O_WRONLY | O_CREAT | O_EXCL);
++	int fd = open(fullName.fn_str(), O_WRONLY | O_CREAT | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd != -1) {
+ 		// Success, the file-system cant be FAT32
+ 		close(fd);
