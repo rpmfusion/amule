@@ -1,28 +1,38 @@
+# TODO: setup firefox for ed2k links using triggers and a file in /usr/lib/firefox-3.0.1/defaults/preferences/
+
 Name:           amule
-Version:        2.1.3
-Release:        5%{?dist}
+Version:        2.2.2
+Release:        1%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Group:          Applications/Internet
 Source0:        http://dl.sourceforge.net/%{name}/aMule-%{version}.tar.bz2
-Patch0:         aMule-wx-1.2.patch
-Patch1:         aMule-2.1.3-ocreate.patch
-Patch2:         aMule-2.1.3-multiple.patch
 Patch3:         aMule-2.1.3-gcc43.patch
 URL:            http://amule.org
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 # See http://www.amule.org/wiki/index.php/Requirements
-BuildRequires:  wxGTK-devel >= 0:2.6.2, desktop-file-utils, expat-devel
+BuildRequires:  wxGTK-devel >= 0:2.8.7, desktop-file-utils, expat-devel
 BuildRequires:  gd-devel >= 2.0.0, libpng-devel
 BuildRequires:  gettext-devel, flex, bison
-BuildRequires:  readline-devel
+BuildRequires:  readline-devel, cryptopp-devel, libupnp-devel
+BuildRequires:  GeoIP-devel
 Requires(pre):  chkconfig
+Requires:       %{name}-nogui
 
 %description
 aMule is an easy to use multi-platform client for ED2K Peer-to-Peer
 Network. It is a fork of xMule, whis was based on eMule for
 Windows. aMule currently supports (but is not limited to) the
 following platforms: Linux, *BSD and MacOS X.
+
+%package nogui
+Summary:        aMule components which don't require a GUI (for servers)
+Group:          Applications/Internet
+
+%description nogui
+This package containes the aMule components which don't require a GUI.
+It is useful for servers which don't have Xorg.
+
 
 %package -n xchat-%{name}
 Summary:        Plugin to display aMule's statistics in XChat
@@ -36,9 +46,6 @@ This plugins allows you to display aMule statistics in XChat
 
 %prep
 %setup -q -n aMule-%{version}
-%patch0 -p1 -b .wx28
-%patch1 -p1 -b .ocreate
-%patch2 -p1 -b .multiple
 %patch3 -p1 -b .gcc43
 
 
@@ -54,10 +61,12 @@ This plugins allows you to display aMule statistics in XChat
     --enable-amulecmd \
     --enable-webserver \
     --enable-amule-daemon \
-    --enable-utf8-systray
+    --enable-utf8-systray \
+    --enable-geoip \
+    --enable-ccache \
+    --enable-optimize
 
 #    --enable-amule-gui        compile aMule remote GUI (EXPERIMENTAL)
-
 
 make %{?_smp_mflags}
 
@@ -102,20 +111,58 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(-,root,root)
 %doc %{_datadir}/doc/aMule-%{version}
-%{_bindir}/*
+%{_bindir}/alc
+%{_bindir}/amule
+%{_bindir}/cas
+%{_bindir}/wxcas
 %{_datadir}/%{name}/
 %{_datadir}/cas
 %{_datadir}/applications/*.desktop
 %{_datadir}/pixmaps/*
-%{_mandir}/man1/*.gz
-%{_mandir}/*/man1/*.gz
+%{_mandir}/man1/alc.1.gz
+%{_mandir}/*/man1/alc.1.gz
+%{_mandir}/man1/amule.1.gz
+%{_mandir}/*/man1/amule.1.gz
+%{_mandir}/man1/cas.1.gz
+%{_mandir}/*/man1/cas.1.gz
+%{_mandir}/man1/wxcas.1.gz
+%{_mandir}/*/man1/wxcas.1.gz
+%exclude %{_datadir}/%{name}/webserver
+
+%files nogui
+%{_bindir}/alcc
+%{_bindir}/amulecmd
+%{_bindir}/amuled
+%{_bindir}/amuleweb
+%{_bindir}/ed2k
+%{_datadir}/%{name}/webserver
+%{_mandir}/man1/alcc.1.gz
+%{_mandir}/*/man1/alcc.1.gz
+%{_mandir}/man1/amulecmd.1.gz
+%{_mandir}/*/man1/amulecmd.1.gz
+%{_mandir}/man1/amuled.1.gz
+%{_mandir}/*/man1/amuled.1.gz
+%{_mandir}/man1/amuleweb.1.gz
+%{_mandir}/*/man1/amuleweb.1.gz
+%{_mandir}/man1/ed2k.1.gz
+%{_mandir}/*/man1/ed2k.1.gz
+
 
 %files -n xchat-%{name}
 %defattr(-,root,root)
+%{_bindir}/autostart-xas
 %{_libdir}/xchat/plugins/xas.pl
+%{_mandir}/man1/xas.1.gz
+%{_mandir}/*/man1/xas.1.gz
 
 
 %changelog
+* Tue Aug 26 2008 Aurelien Bompard <abompard@fedoraproject.org> 2.2.2-1
+- version 2.2.2
+- patch 0 and 2 applied upstream
+- drop patch1
+- split off non-X-dependent tools
+
 * Sun Oct 26 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 2.1.3-5
 - rebuilt
 
