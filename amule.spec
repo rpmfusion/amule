@@ -157,7 +157,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Tue Aug 26 2008 Aurelien Bompard <abompard@fedoraproject.org> 2.2.2-1
+* Sat Nov 08 2008 Aurelien Bompard <abompard@fedoraproject.org> 2.2.2-1
 - version 2.2.2
 - patch 0 and 2 applied upstream
 - drop patch1
