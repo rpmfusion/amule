@@ -2,7 +2,7 @@
 
 Name:           amule
 Version:        2.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Group:          Applications/Internet
@@ -64,9 +64,8 @@ This plugins allows you to display aMule statistics in XChat
     --enable-utf8-systray \
     --enable-geoip \
     --enable-ccache \
+    --enable-amule-gui \
     --enable-optimize
-
-#    --enable-amule-gui        compile aMule remote GUI (EXPERIMENTAL)
 
 make %{?_smp_mflags}
 
@@ -82,9 +81,7 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 desktop-file-install --vendor livna \
                      --delete-original\
                      --dir $RPM_BUILD_ROOT%{_datadir}/applications\
-                     --add-category Application\
                      --add-category Network\
-                     --add-category X-Livna\
                      $RPM_BUILD_ROOT%{_datadir}/applications/%{name}.desktop
 
 iconv -f ISO-8859-1 -t UTF-8 < src/utils/aLinkCreator/alc.desktop \
@@ -92,16 +89,18 @@ iconv -f ISO-8859-1 -t UTF-8 < src/utils/aLinkCreator/alc.desktop \
 desktop-file-install --vendor livna \
                      --delete-original\
                      --dir $RPM_BUILD_ROOT%{_datadir}/applications\
-                     --add-category X-Livna\
                      $RPM_BUILD_ROOT%{_datadir}/applications/alc.desktop
-install -m 644 src/utils/aLinkCreator/alc.xpm $RPM_BUILD_ROOT%{_datadir}/pixmaps/alc.xpm
 
 desktop-file-install --vendor livna \
                      --delete-original\
                      --dir $RPM_BUILD_ROOT%{_datadir}/applications\
-                     --add-category X-Livna\
                      $RPM_BUILD_ROOT%{_datadir}/applications/wxcas.desktop
-install -m 644 src/utils/wxCas/wxcas.xpm $RPM_BUILD_ROOT%{_datadir}/pixmaps
+
+desktop-file-install --vendor livna \
+                     --delete-original\
+                     --dir $RPM_BUILD_ROOT%{_datadir}/applications\
+                     --add-category Network\
+                     $RPM_BUILD_ROOT%{_datadir}/applications/%{name}gui.desktop
 
 
 %clean
@@ -115,6 +114,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/amule
 %{_bindir}/cas
 %{_bindir}/wxcas
+%{_bindir}/amulegui
 %{_datadir}/%{name}/
 %{_datadir}/cas
 %{_datadir}/applications/*.desktop
@@ -127,6 +127,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/*/man1/cas.1.gz
 %{_mandir}/man1/wxcas.1.gz
 %{_mandir}/*/man1/wxcas.1.gz
+%{_mandir}/man1/amulegui.1.gz
+%{_mandir}/*/man1/amulegui.1.gz
 %exclude %{_datadir}/%{name}/webserver
 
 %files nogui
@@ -157,6 +159,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Nov 20 2008 Aurelien Bompard <abompard@fedoraproject.org> 2.2.2-2
+- add remote GUI
+
 * Sat Nov 08 2008 Aurelien Bompard <abompard@fedoraproject.org> 2.2.2-1
 - version 2.2.2
 - patch 0 and 2 applied upstream
