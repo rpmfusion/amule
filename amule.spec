@@ -1,13 +1,13 @@
 # TODO: setup firefox for ed2k links using triggers and a file in /usr/lib/firefox-3.0.1/defaults/preferences/
 
 Name:           amule
-Version:        2.2.2
-Release:        2%{?dist}
+Version:        2.2.3
+Release:        1%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Group:          Applications/Internet
 Source0:        http://dl.sourceforge.net/%{name}/aMule-%{version}.tar.bz2
-Patch3:         aMule-2.1.3-gcc43.patch
+Patch3:         aMule-2.2.3-gcc44.patch
 URL:            http://amule.org
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 # See http://www.amule.org/wiki/index.php/Requirements
@@ -46,7 +46,7 @@ This plugins allows you to display aMule statistics in XChat
 
 %prep
 %setup -q -n aMule-%{version}
-%patch3 -p1 -b .gcc43
+%patch3 -p1 -b .gcc44
 
 
 %build
@@ -65,7 +65,8 @@ This plugins allows you to display aMule statistics in XChat
     --enable-geoip \
     --enable-ccache \
     --enable-amule-gui \
-    --enable-optimize
+    --enable-optimize \
+    --with-denoise-level=0
 
 make %{?_smp_mflags}
 
@@ -159,6 +160,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Mar 22 2009 Felix Kaechele <felix at fetzig dot org> - 2.2.3-1
+- updated to 2.2.3
+- replaced patch3 with new one for gcc4.4
+
 * Thu Nov 20 2008 Aurelien Bompard <abompard@fedoraproject.org> 2.2.2-2
 - add remote GUI
 
