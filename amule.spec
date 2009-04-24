@@ -1,13 +1,12 @@
 # TODO: setup firefox for ed2k links using triggers and a file in /usr/lib/firefox-3.0.1/defaults/preferences/
 
 Name:           amule
-Version:        2.2.3
+Version:        2.2.4
 Release:        1%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Group:          Applications/Internet
 Source0:        http://dl.sourceforge.net/%{name}/aMule-%{version}.tar.bz2
-Patch3:         aMule-2.2.3-gcc44.patch
 URL:            http://amule.org
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 # See http://www.amule.org/wiki/index.php/Requirements
@@ -30,7 +29,7 @@ Summary:        aMule components which don't require a GUI (for servers)
 Group:          Applications/Internet
 
 %description nogui
-This package containes the aMule components which don't require a GUI.
+This package contains the aMule components which don't require a GUI.
 It is useful for servers which don't have Xorg.
 
 
@@ -39,6 +38,7 @@ Summary:        Plugin to display aMule's statistics in XChat
 Group:          Applications/Internet
 Requires:       %{name} = %{version}-%{release}
 Requires:       xchat
+BuildArch:      noarch
 
 %description -n xchat-%{name}
 This plugins allows you to display aMule statistics in XChat
@@ -46,7 +46,6 @@ This plugins allows you to display aMule statistics in XChat
 
 %prep
 %setup -q -n aMule-%{version}
-%patch3 -p1 -b .gcc44
 
 
 %build
@@ -109,7 +108,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files -f %{name}.lang
-%defattr(-,root,root)
+%defattr(-,root,root,-)
 %doc %{_datadir}/doc/aMule-%{version}
 %{_bindir}/alc
 %{_bindir}/amule
@@ -133,6 +132,7 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{_datadir}/%{name}/webserver
 
 %files nogui
+%defattr(-,root,root,-)
 %{_bindir}/alcc
 %{_bindir}/amulecmd
 %{_bindir}/amuled
@@ -152,14 +152,18 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files -n xchat-%{name}
-%defattr(-,root,root)
+%defattr(-,root,root,-)
 %{_bindir}/autostart-xas
-%{_libdir}/xchat/plugins/xas.pl
+%attr(0755, root, root) %{_libdir}/xchat/plugins/xas.pl
 %{_mandir}/man1/xas.1.gz
 %{_mandir}/*/man1/xas.1.gz
 
 
 %changelog
+* Wed Apr 15 2009 Felix Kaechele <felix at fetzig dot org> - 2.2.4-1
+- upstream 2.2.4
+- spec fixup
+
 * Sun Mar 22 2009 Felix Kaechele <felix at fetzig dot org> - 2.2.3-1
 - updated to 2.2.3
 - replaced patch3 with new one for gcc4.4
