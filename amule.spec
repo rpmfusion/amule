@@ -1,7 +1,7 @@
 # TODO: setup firefox for ed2k links using triggers and a file in /usr/lib/firefox-3.0.1/defaults/preferences/
 
 Name:           amule
-Version:        2.2.4
+Version:        2.2.5
 Release:        1%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
@@ -160,6 +160,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue May 19 2009 Felix Kaechele <heffer@fedoraproject.org> - 2.2.5-1
+- 2.2.5
+
 * Wed Apr 15 2009 Felix Kaechele <felix at fetzig dot org> - 2.2.4-1
 - upstream 2.2.4
 - spec fixup
