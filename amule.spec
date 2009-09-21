@@ -1,7 +1,7 @@
 # TODO: setup firefox for ed2k links using triggers and a file in /usr/lib/firefox-3.0.1/defaults/preferences/
 
 Name:           amule
-Version:        2.2.5
+Version:        2.2.6
 Release:        1%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
@@ -25,7 +25,7 @@ Windows. aMule currently supports (but is not limited to) the
 following platforms: Linux, *BSD and MacOS X.
 
 %package nogui
-Summary:        aMule components which don't require a GUI (for servers)
+Summary:        Components of aMule which don't require a GUI (for servers)
 Group:          Applications/Internet
 
 %description nogui
@@ -46,7 +46,12 @@ This plugins allows you to display aMule statistics in XChat
 
 %prep
 %setup -q -n aMule-%{version}
-
+manfiles=`find . -name "*.1"`
+for manfile in $manfiles; do
+    iconv -f ISO-8859-1 -t UTF-8 < $manfile > $manfile.utf8
+    touch -r $manfile $manfile.utf8
+    mv -f $manfile.utf8 $manfile
+done
 
 %build
 %configure \
@@ -160,6 +165,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Sep 20 2009 Felix Kaechele <heffer@fedoraproject.org> - 2.2.6-1
+- 2.2.6
+
 * Tue May 19 2009 Felix Kaechele <heffer@fedoraproject.org> - 2.2.5-1
 - 2.2.5
 
