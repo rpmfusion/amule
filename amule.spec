@@ -2,7 +2,7 @@
 
 Name:           amule
 Version:        2.2.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Group:          Applications/Internet
@@ -169,6 +169,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Sep 27 2011 Nicolas Chauvet <kwizart@gmail.com> - 2.2.6-4
+- Rebuilt for libupnp
+
 * Thu Oct 14 2010 Nicolas Chauvet <kwizart@gmail.com> - 2.2.6-3
 - Fix FTBFS and gcc compiler bug
 - Conditionalize noarch subpackage
