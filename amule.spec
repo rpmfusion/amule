@@ -1,13 +1,12 @@
 # TODO: setup firefox for ed2k links using triggers and a file in /usr/lib/firefox-3.0.1/defaults/preferences/
 
 Name:           amule
-Version:        2.2.6
-Release:        4%{?dist}
+Version:        2.3.1
+Release:        1%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Group:          Applications/Internet
-Source0:        http://dl.sourceforge.net/%{name}/aMule-%{version}.tar.bz2
-Patch0:         aMule-2.2.6-fix_FTBFS.patch
+Source0:        http://dl.sourceforge.net/%{name}/aMule-%{version}.tar.xz
 URL:            http://amule.org
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 # See http://www.amule.org/wiki/index.php/Requirements
@@ -49,7 +48,6 @@ This plugins allows you to display aMule statistics in XChat
 
 %prep
 %setup -q -n aMule-%{version}
-%patch0 -p1 -b .new
 manfiles=`find . -name "*.1"`
 for manfile in $manfiles; do
     iconv -f ISO-8859-1 -t UTF-8 < $manfile > $manfile.utf8
@@ -61,15 +59,16 @@ done
 %configure \
     --disable-rpath \
     --disable-debug \
+    --docdir=%{_datadir}/doc/%{name}-%{version} \
     --enable-wxcas \
     --enable-cas \
     --enable-alc \
     --enable-alcc \
+    --enable-xas \
     --enable-amule-daemon \
     --enable-amulecmd \
     --enable-webserver \
     --enable-amule-daemon \
-    --enable-utf8-systray \
     --enable-geoip \
     --enable-ccache \
     --enable-amule-gui \
@@ -118,7 +117,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
-%doc %{_datadir}/doc/aMule-%{version}
+%doc ABOUT-NLS
 %{_bindir}/alc
 %{_bindir}/amule
 %{_bindir}/cas
@@ -169,8 +168,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Tue Sep 27 2011 Nicolas Chauvet <kwizart@gmail.com> - 2.2.6-4
-- Rebuilt for libupnp
+* Mon Jan 23 2012 Nicolas Chauvet <kwizart@gmail.com> - 2.3.1-1
+- Update to 2.3.1
 
 * Thu Oct 14 2010 Nicolas Chauvet <kwizart@gmail.com> - 2.2.6-3
 - Fix FTBFS and gcc compiler bug
