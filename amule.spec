@@ -1,8 +1,9 @@
 # TODO: setup firefox for ed2k links using triggers and a file in /usr/lib/firefox-3.0.1/defaults/preferences/
+%global _hardened_build 1
 
 Name:           amule
 Version:        2.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Group:          Applications/Internet
@@ -170,7 +171,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Sun May 13 2012 Nicolas Chauvet <kwizart@gmail.com> - 2.3.1-1
+* Sun May 13 2012 Nicolas Chauvet <kwizart@gmail.com> - 2.3.1-2
+- Add hardened build
 - Fix build with gcc47
 
 * Mon Jan 23 2012 Nicolas Chauvet <kwizart@gmail.com> - 2.3.1-0
