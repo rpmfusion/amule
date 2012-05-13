@@ -7,6 +7,7 @@ Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Group:          Applications/Internet
 Source0:        http://dl.sourceforge.net/%{name}/aMule-%{version}.tar.xz
+Patch0:         aMule-2.3.1-gcc47.patch
 URL:            http://amule.org
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 # See http://www.amule.org/wiki/index.php/Requirements
@@ -48,6 +49,7 @@ This plugins allows you to display aMule statistics in XChat
 
 %prep
 %setup -q -n aMule-%{version}
+%patch0 -p1 -b .gcc47
 manfiles=`find . -name "*.1"`
 for manfile in $manfiles; do
     iconv -f ISO-8859-1 -t UTF-8 < $manfile > $manfile.utf8
@@ -168,7 +170,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Mon Jan 23 2012 Nicolas Chauvet <kwizart@gmail.com> - 2.3.1-1
+* Sun May 13 2012 Nicolas Chauvet <kwizart@gmail.com> - 2.3.1-1
+- Fix build with gcc47
+
+* Mon Jan 23 2012 Nicolas Chauvet <kwizart@gmail.com> - 2.3.1-0
 - Update to 2.3.1
 
 * Thu Oct 14 2010 Nicolas Chauvet <kwizart@gmail.com> - 2.2.6-3
