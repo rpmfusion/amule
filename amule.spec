@@ -3,7 +3,7 @@
 
 Name:           amule
 Version:        2.3.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Group:          Applications/Internet
@@ -171,6 +171,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jun 12 2013 Nicolas Chauvet <kwizart@gmail.com> - 2.3.1-4
+- Rebuilt for GD 2.1.0
+
 * Sun Mar 03 2013 Nicolas Chauvet <kwizart@gmail.com> - 2.3.1-3
 - Mass rebuilt for Fedora 19 Features
 
