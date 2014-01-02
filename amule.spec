@@ -3,7 +3,7 @@
 
 Name:           amule
 Version:        2.3.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Group:          Applications/Internet
@@ -62,7 +62,6 @@ done
 %configure \
     --disable-rpath \
     --disable-debug \
-    --docdir=%{_datadir}/doc/%{name}-%{version} \
     --enable-wxcas \
     --enable-cas \
     --enable-alc \
@@ -89,7 +88,7 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 %find_lang %{name}
 
 # desktop files
-desktop-file-install --vendor livna \
+desktop-file-install --vendor "" \
                      --delete-original\
                      --dir $RPM_BUILD_ROOT%{_datadir}/applications\
                      --add-category Network\
@@ -102,12 +101,12 @@ desktop-file-install --vendor livna \
                      --dir $RPM_BUILD_ROOT%{_datadir}/applications\
                      $RPM_BUILD_ROOT%{_datadir}/applications/alc.desktop
 
-desktop-file-install --vendor livna \
+desktop-file-install --vendor "" \
                      --delete-original\
                      --dir $RPM_BUILD_ROOT%{_datadir}/applications\
                      $RPM_BUILD_ROOT%{_datadir}/applications/wxcas.desktop
 
-desktop-file-install --vendor livna \
+desktop-file-install --vendor "" \
                      --delete-original\
                      --dir $RPM_BUILD_ROOT%{_datadir}/applications\
                      --add-category Network\
@@ -171,6 +170,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jan 02 2014 Nicolas Chauvet <kwizart@gmail.com> - 2.3.1-5
+- Drop docdir and desktop vendor
+
 * Wed Jun 12 2013 Nicolas Chauvet <kwizart@gmail.com> - 2.3.1-4
 - Rebuilt for GD 2.1.0
 
@@ -220,7 +222,7 @@ rm -rf $RPM_BUILD_ROOT
 * Sun Aug 03 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info - 2.1.3-4
 - rebuild
 
-* Tue Mar 04 2007 kwizart <kwizart at gmail.com > - 2.1.3-3
+* Wed Mar 04 2007 kwizart <kwizart at gmail.com > - 2.1.3-3
 - Fix wxGTK 2.8.x
 - Fix open with O_CREATE
 - Prevent timestramps on install
