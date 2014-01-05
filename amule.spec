@@ -96,7 +96,7 @@ desktop-file-install --vendor "" \
 
 iconv -f ISO-8859-1 -t UTF-8 < src/utils/aLinkCreator/alc.desktop \
       > $RPM_BUILD_ROOT%{_datadir}/applications/alc.desktop
-desktop-file-install --vendor livna \
+desktop-file-install --vendor "" \
                      --delete-original\
                      --dir $RPM_BUILD_ROOT%{_datadir}/applications\
                      $RPM_BUILD_ROOT%{_datadir}/applications/alc.desktop
@@ -119,7 +119,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
-%doc ABOUT-NLS
+%doc ABOUT-NLS Changelog README TODO
+%doc EC_Protocol.txt amulesig.txt license.txt 
 %{_bindir}/alc
 %{_bindir}/amule
 %{_bindir}/cas
