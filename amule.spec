@@ -3,7 +3,7 @@
 
 Name:           amule
 Version:        2.3.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Group:          Applications/Internet
@@ -171,6 +171,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Aug 30 2014 Sérgio Basto <sergio@serjux.com> - 2.3.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
+
 * Thu Jan 02 2014 Nicolas Chauvet <kwizart@gmail.com> - 2.3.1-5
 - Drop docdir and desktop vendor
 
