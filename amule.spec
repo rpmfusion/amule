@@ -3,14 +3,13 @@
 
 Name:           amule
 Version:        2.3.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Group:          Applications/Internet
 Source0:        http://dl.sourceforge.net/%{name}/aMule-%{version}.tar.xz
 Patch0:         aMule-2.3.1-gcc47.patch
 URL:            http://amule.org
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 # See http://www.amule.org/wiki/index.php/Requirements
 BuildRequires:  wxGTK-devel >= 0:2.8.7, desktop-file-utils, expat-devel
 BuildRequires:  gd-devel >= 2.0.0, libpng-devel
@@ -40,9 +39,7 @@ Summary:        Plugin to display aMule's statistics in XChat
 Group:          Applications/Internet
 Requires:       %{name} = %{version}-%{release}
 Requires:       xchat
-%if 0%{?fedora} > 9 || 0%{?rhel} > 5 
-BuildArch:      noarch 
-%endif 
+BuildArch:      noarch
 
 %description -n xchat-%{name}
 This plugins allows you to display aMule statistics in XChat
@@ -81,7 +78,6 @@ make %{?_smp_mflags}
 
 
 %install
-rm -rf $RPM_BUILD_ROOT _docs
 
 make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 
@@ -113,14 +109,10 @@ desktop-file-install --vendor "" \
                      $RPM_BUILD_ROOT%{_datadir}/applications/%{name}gui.desktop
 
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 
 %files -f %{name}.lang
-%defattr(-,root,root,-)
-%doc ABOUT-NLS Changelog README TODO
-%doc EC_Protocol.txt amulesig.txt license.txt 
+%doc docs/ABOUT-NLS docs/Changelog docs/README docs/TODO
+%doc docs/EC_Protocol.txt docs/amulesig.txt docs/license.txt 
 %{_bindir}/alc
 %{_bindir}/amule
 %{_bindir}/cas
@@ -143,7 +135,6 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{_datadir}/%{name}/webserver
 
 %files nogui
-%defattr(-,root,root,-)
 %{_bindir}/alcc
 %{_bindir}/amulecmd
 %{_bindir}/amuled
@@ -163,7 +154,6 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files -n xchat-%{name}
-%defattr(-,root,root,-)
 %{_bindir}/autostart-xas
 %attr(0755, root, root) %{_libdir}/xchat/plugins/xas.pl
 %{_mandir}/man1/xas.1.gz
@@ -171,6 +161,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Nov 16 2014 Nicolas Chauvet <kwizart@gmail.com> - 2.3.1-7
+- Clean spec file
+
 * Sat Aug 30 2014 Sérgio Basto <sergio@serjux.com> - 2.3.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
@@ -226,7 +219,7 @@ rm -rf $RPM_BUILD_ROOT
 * Sun Aug 03 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info - 2.1.3-4
 - rebuild
 
-* Wed Mar 04 2007 kwizart <kwizart at gmail.com > - 2.1.3-3
+* Sun Mar 04 2007 kwizart <kwizart at gmail.com > - 2.1.3-3
 - Fix wxGTK 2.8.x
 - Fix open with O_CREATE
 - Prevent timestramps on install
