@@ -3,7 +3,7 @@
 
 Name:           amule
 Version:        2.3.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Group:          Applications/Internet
@@ -39,7 +39,6 @@ Summary:        Plugin to display aMule's statistics in XChat
 Group:          Applications/Internet
 Requires:       %{name} = %{version}-%{release}
 Requires:       xchat
-BuildArch:      noarch
 
 %description -n xchat-%{name}
 This plugins allows you to display aMule statistics in XChat
@@ -161,6 +160,9 @@ desktop-file-install --vendor "" \
 
 
 %changelog
+* Fri May 01 2015 Nicolas Chauvet <kwizart@gmail.com> - 2.3.1-8
+- Remove noarch from xchat fix build on Koji
+
 * Sun Nov 16 2014 Nicolas Chauvet <kwizart@gmail.com> - 2.3.1-7
 - Clean spec file
 
