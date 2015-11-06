@@ -107,6 +107,9 @@ desktop-file-install --vendor "" \
                      --add-category Network\
                      $RPM_BUILD_ROOT%{_datadir}/applications/%{name}gui.desktop
 
+# clean-up INSTALL file in doc
+rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/INSTALL
+
 
 
 %files -f %{name}.lang
