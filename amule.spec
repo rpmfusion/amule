@@ -1,21 +1,26 @@
 # TODO: setup firefox for ed2k links using triggers and a file in /usr/lib/firefox-3.0.1/defaults/preferences/
-%global _hardened_build 1
+#global _hardened_build 1
+
+#globals for https://github.com/amule-project/amule/commit/88aa0231f0c06023b32cba0d5a3871d418bb0f1f
+#global commit1 88aa0231f0c06023b32cba0d5a3871d418bb0f1f
+#global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
 Name:           amule
-Version:        2.3.1
-Release:        8%{?dist}
+Version:        2.3.2
+Release:        1
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Group:          Applications/Internet
-Source0:        http://dl.sourceforge.net/%{name}/aMule-%{version}.tar.xz
-Patch0:         aMule-2.3.1-gcc47.patch
+#Source0:        https://github.com/amule-project/%{name}/archive/%{commit1}.tar.gz#/%{name}-%{shortcommit1}.tar.gz
+Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name}-%{version}.tar.gz
 URL:            http://amule.org
 # See http://www.amule.org/wiki/index.php/Requirements
-BuildRequires:  wxGTK-devel >= 0:2.8.7, desktop-file-utils, expat-devel
+BuildRequires:  wxGTK3-devel >= 0:2.8.7, desktop-file-utils, expat-devel
 BuildRequires:  gd-devel >= 2.0.0, libpng-devel
 BuildRequires:  gettext-devel, flex, bison
 BuildRequires:  readline-devel, cryptopp-devel, libupnp-devel
 BuildRequires:  GeoIP-devel
+BuildRequires:  libtool intltool
 Requires(pre):  chkconfig
 Requires:       %{name}-nogui
 
@@ -45,16 +50,10 @@ This plugins allows you to display aMule statistics in XChat
 
 
 %prep
-%setup -q -n aMule-%{version}
-%patch0 -p1 -b .gcc47
-manfiles=`find . -name "*.1"`
-for manfile in $manfiles; do
-    iconv -f ISO-8859-1 -t UTF-8 < $manfile > $manfile.utf8
-    touch -r $manfile $manfile.utf8
-    mv -f $manfile.utf8 $manfile
-done
+%setup -q -n %{name}-%{version}
 
 %build
+./autogen.sh
 %configure \
     --disable-rpath \
     --disable-debug \
@@ -71,6 +70,7 @@ done
     --enable-ccache \
     --enable-amule-gui \
     --enable-optimize \
+    --enable-nls \
     --with-denoise-level=0
 
 make %{?_smp_mflags}
@@ -89,8 +89,6 @@ desktop-file-install --vendor "" \
                      --add-category Network\
                      $RPM_BUILD_ROOT%{_datadir}/applications/%{name}.desktop
 
-iconv -f ISO-8859-1 -t UTF-8 < src/utils/aLinkCreator/alc.desktop \
-      > $RPM_BUILD_ROOT%{_datadir}/applications/alc.desktop
 desktop-file-install --vendor "" \
                      --delete-original\
                      --dir $RPM_BUILD_ROOT%{_datadir}/applications\
@@ -114,7 +112,7 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/INSTALL
 
 %files -f %{name}.lang
 %doc docs/ABOUT-NLS docs/Changelog docs/README docs/TODO
-%doc docs/EC_Protocol.txt docs/amulesig.txt docs/license.txt 
+%doc docs/EC_Protocol.txt docs/amulesig.txt docs/license.txt
 %{_bindir}/alc
 %{_bindir}/amule
 %{_bindir}/cas
@@ -163,6 +161,15 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/INSTALL
 
 
 %changelog
+* Wed Sep 21 2016 Sérgio Basto <sergio@serjux.com> - 2.3.2-1
+- New upstream release
+
+* Fri May 06 2016 Sérgio Basto <sergio@serjux.com> - 2.3.2-0.1.20160506git88aa023
+- Update to amule to pre 0.3.2
+- Use new location of sources.
+- Drop patch aMule-2.3.1-gcc47 is upstreamed.
+- Man files and others are fixed, they are converted to UTF-8.
+
 * Fri May 01 2015 Nicolas Chauvet <kwizart@gmail.com> - 2.3.1-8
 - Remove noarch from xchat fix build on Koji
 
