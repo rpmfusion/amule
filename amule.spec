@@ -7,7 +7,7 @@
 
 Name:           amule
 Version:        2.3.2
-Release:        1
+Release:        1%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Group:          Applications/Internet
