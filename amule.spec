@@ -7,7 +7,7 @@
 
 Name:           amule
 Version:        2.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Group:          Applications/Internet
@@ -71,6 +71,7 @@ This plugins allows you to display aMule statistics in XChat
     --enable-amule-gui \
     --enable-optimize \
     --enable-nls \
+    --with-wx-config=/usr/bin/wx-config-3.0 \
     --with-denoise-level=0
 
 make %{?_smp_mflags}
@@ -161,6 +162,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/INSTALL
 
 
 %changelog
+* Thu Sep 22 2016 Sérgio Basto <sergio@serjux.com> - 2.3.2-2
+- with-wx-config=/usr/bin/wx-config-3.0
+
 * Wed Sep 21 2016 Sérgio Basto <sergio@serjux.com> - 2.3.2-1
 - New upstream release
 
