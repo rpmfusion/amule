@@ -171,6 +171,7 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/INSTALL
 * Fri May 06 2016 Sérgio Basto <sergio@serjux.com> - 2.3.2-0.1.20160506git88aa023
 - Update to amule to pre 0.3.2
 - Use new location of sources.
+- Move BR:wxGTK-devel to wxGTK3-devel
 - Drop patch aMule-2.3.1-gcc47 is upstreamed.
 - Man files and others are fixed, they are converted to UTF-8.
 
