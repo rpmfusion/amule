@@ -7,7 +7,7 @@
 
 Name:           amule
 Version:        2.3.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Group:          Applications/Internet
@@ -15,7 +15,7 @@ Group:          Applications/Internet
 Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name}-%{version}.tar.gz
 URL:            http://amule.org
 # See http://www.amule.org/wiki/index.php/Requirements
-BuildRequires:  wxGTK3-devel >= 0:2.8.7, desktop-file-utils, expat-devel
+BuildRequires:  wxGTK-devel >= 0:2.8.7, desktop-file-utils, expat-devel
 BuildRequires:  gd-devel >= 2.0.0, libpng-devel
 BuildRequires:  gettext-devel, flex, bison
 BuildRequires:  readline-devel, cryptopp-devel, libupnp-devel
@@ -71,7 +71,6 @@ This plugins allows you to display aMule statistics in XChat
     --enable-amule-gui \
     --enable-optimize \
     --enable-nls \
-    --with-wx-config=/usr/bin/wx-config-3.0 \
     --with-denoise-level=0
 
 make %{?_smp_mflags}
@@ -162,6 +161,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/INSTALL
 
 
 %changelog
+* Fri Sep 23 2016 Sérgio Basto <sergio@serjux.com> - 2.3.2-3
+- Back to wxGTK 2.8.12, wxGTK3.0 give me some problems.
+
 * Thu Sep 22 2016 Sérgio Basto <sergio@serjux.com> - 2.3.2-2
 - with-wx-config=/usr/bin/wx-config-3.0
 
