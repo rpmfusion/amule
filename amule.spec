@@ -39,16 +39,6 @@ This package contains the aMule components which don't require a GUI.
 It is useful for servers which don't have Xorg.
 
 
-%package -n xchat-%{name}
-Summary:        Plugin to display aMule's statistics in XChat
-Group:          Applications/Internet
-Requires:       %{name} = %{version}-%{release}
-Requires:       xchat
-
-%description -n xchat-%{name}
-This plugins allows you to display aMule statistics in XChat
-
-
 %prep
 %setup -q -n %{name}-%{version}
 
@@ -61,7 +51,6 @@ This plugins allows you to display aMule statistics in XChat
     --enable-cas \
     --enable-alc \
     --enable-alcc \
-    --enable-xas \
     --enable-amule-daemon \
     --enable-amulecmd \
     --enable-webserver \
@@ -151,13 +140,6 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/INSTALL
 %{_mandir}/*/man1/amuleweb.1.gz
 %{_mandir}/man1/ed2k.1.gz
 %{_mandir}/*/man1/ed2k.1.gz
-
-
-%files -n xchat-%{name}
-%{_bindir}/autostart-xas
-%attr(0755, root, root) %{_libdir}/xchat/plugins/xas.pl
-%{_mandir}/man1/xas.1.gz
-%{_mandir}/*/man1/xas.1.gz
 
 
 %changelog
