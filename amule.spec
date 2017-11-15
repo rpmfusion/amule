@@ -7,7 +7,7 @@
 
 Name:           amule
 Version:        2.3.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Group:          Applications/Internet
@@ -33,6 +33,8 @@ following platforms: Linux, *BSD and MacOS X.
 %package nogui
 Summary:        Components of aMule which don't require a GUI (for servers)
 Group:          Applications/Internet
+Obsoletes:      xchat-amule < 2.3.2-7
+Provides:       xchat-amule = 2.3.2-7
 
 %description nogui
 This package contains the aMule components which don't require a GUI.
@@ -143,7 +145,8 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/INSTALL
 
 
 %changelog
-* Wed Nov 15 2017 Nicolas Chauvet <kwizart@gmail.com> - 2.3.2-6
+* Wed Nov 15 2017 Nicolas Chauvet <kwizart@gmail.com> - 2.3.2-7
+- Add obsoletes/provides
 - Disable xchat-amule
 
 * Thu Aug 31 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 2.3.2-5
