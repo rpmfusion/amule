@@ -7,7 +7,7 @@
 
 Name:           amule
 Version:        2.3.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Group:          Applications/Internet
@@ -143,6 +143,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/INSTALL
 
 
 %changelog
+* Wed Nov 15 2017 Nicolas Chauvet <kwizart@gmail.com> - 2.3.2-6
+- Disable xchat-amule
+
 * Thu Aug 31 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 2.3.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
