@@ -7,7 +7,7 @@
 
 Name:           amule
 Version:        2.3.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Group:          Applications/Internet
@@ -17,11 +17,11 @@ URL:            http://amule.org
 # See http://www.amule.org/wiki/index.php/Requirements
 BuildRequires:  wxGTK-devel >= 0:2.8.7, desktop-file-utils, expat-devel
 BuildRequires:  gd-devel >= 2.0.0, libpng-devel
-BuildRequires:  gettext-devel, flex, bison
-BuildRequires:  readline-devel, cryptopp-devel, libupnp-devel
+BuildRequires:  gettext-devel flex bison
+BuildRequires:  readline-devel cryptopp-devel libupnp-devel
+BuildRequires:  binutils-devel
 BuildRequires:  GeoIP-devel
-BuildRequires:  libtool intltool
-Requires(pre):  chkconfig
+BuildRequires:  libtool
 Requires:       %{name}-nogui
 
 %description
@@ -64,12 +64,11 @@ It is useful for servers which don't have Xorg.
     --enable-nls \
     --with-denoise-level=0
 
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
+%make_install
 
 %find_lang %{name}
 
@@ -98,18 +97,19 @@ desktop-file-install --vendor "" \
 
 # clean-up INSTALL file in doc
 rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/INSTALL
+rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/COPYING
 
 
 
 %files -f %{name}.lang
-%doc docs/ABOUT-NLS docs/Changelog docs/README docs/TODO
-%doc docs/EC_Protocol.txt docs/amulesig.txt docs/license.txt
+%{_docdir}/%{name}
+%license docs/COPYING
 %{_bindir}/alc
 %{_bindir}/amule
 %{_bindir}/cas
 %{_bindir}/wxcas
 %{_bindir}/amulegui
-%{_datadir}/%{name}/
+%{_datadir}/%{name}
 %{_datadir}/cas
 %{_datadir}/applications/*.desktop
 %{_datadir}/pixmaps/*
@@ -145,6 +145,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/INSTALL
 
 
 %changelog
+* Tue Feb 06 2018 Sérgio Basto <sergio@serjux.com> - 2.3.2-8
+- Clean up spec
+
 * Wed Nov 15 2017 Nicolas Chauvet <kwizart@gmail.com> - 2.3.2-7
 - Add obsoletes/provides
 - Disable xchat-amule
