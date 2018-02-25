@@ -7,7 +7,7 @@
 
 Name:           amule
 Version:        2.3.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name}-%{version}.tar.gz
@@ -142,6 +142,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/COPYING
 
 
 %changelog
+* Sun Feb 25 2018 Nicolas Chauvet <kwizart@gmail.com> - 2.3.2-9
+- Spec clean-up and rebuilt for cryptopp
+
 * Tue Feb 06 2018 Sérgio Basto <sergio@serjux.com> - 2.3.2-8
 - Clean up spec
 
