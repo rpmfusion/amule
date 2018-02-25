@@ -10,8 +10,6 @@ Version:        2.3.2
 Release:        8%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
-Group:          Applications/Internet
-#Source0:        https://github.com/amule-project/%{name}/archive/%{commit1}.tar.gz#/%{name}-%{shortcommit1}.tar.gz
 Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name}-%{version}.tar.gz
 URL:            http://amule.org
 # See http://www.amule.org/wiki/index.php/Requirements
@@ -32,7 +30,6 @@ following platforms: Linux, *BSD and MacOS X.
 
 %package nogui
 Summary:        Components of aMule which don't require a GUI (for servers)
-Group:          Applications/Internet
 Obsoletes:      xchat-amule < 2.3.2-7
 Provides:       xchat-amule = 2.3.2-7
 
