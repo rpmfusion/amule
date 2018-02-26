@@ -11,6 +11,7 @@ Release:        9%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name}-%{version}.tar.gz
+Patch1          https://github.com/amule-project/amule/pull/120.patch
 URL:            http://amule.org
 # See http://www.amule.org/wiki/index.php/Requirements
 BuildRequires:  wxGTK-devel >= 0:2.8.7, desktop-file-utils, expat-devel
@@ -39,7 +40,7 @@ It is useful for servers which don't have Xorg.
 
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -p1
 
 %build
 ./autogen.sh
