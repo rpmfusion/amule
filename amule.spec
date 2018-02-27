@@ -7,7 +7,7 @@
 
 Name:           amule
 Version:        2.3.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name}-%{version}.tar.gz
@@ -143,6 +143,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/COPYING
 
 
 %changelog
+* Tue Feb 27 2018 Sérgio Basto <sergio@serjux.com> - 2.3.2-10
+- Fix FTBFS with crypto++ 6.0.0
+
 * Sun Feb 25 2018 Nicolas Chauvet <kwizart@gmail.com> - 2.3.2-9
 - Spec clean-up and rebuilt for cryptopp
 
