@@ -7,20 +7,29 @@
 
 Name:           amule
 Version:        2.3.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name}-%{version}.tar.gz
-Patch1          https://github.com/amule-project/amule/pull/120.patch
+Patch1:         https://github.com/amule-project/amule/pull/120.patch
+Patch2:         libupnp1.8.patch
 URL:            http://amule.org
 # See http://www.amule.org/wiki/index.php/Requirements
-BuildRequires:  wxGTK-devel >= 0:2.8.7, desktop-file-utils, expat-devel
-BuildRequires:  gd-devel >= 2.0.0, libpng-devel
-BuildRequires:  gettext-devel flex bison
-BuildRequires:  readline-devel cryptopp-devel libupnp-devel
+BuildRequires:  compat-wxGTK3-gtk2-devel
+BuildRequires:  desktop-file-utils
+BuildRequires:  expat-devel
+BuildRequires:  gd-devel >= 2.0.0
+BuildRequires:  libpng-devel
+BuildRequires:  gettext-devel
+BuildRequires:  flex
+BuildRequires:  bison
+BuildRequires:  readline-devel
+BuildRequires:  cryptopp-devel
+BuildRequires:  libupnp-devel
 BuildRequires:  binutils-devel
 BuildRequires:  GeoIP-devel
 BuildRequires:  libtool
+
 Requires:       %{name}-nogui
 
 %description
@@ -143,6 +152,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/COPYING
 
 
 %changelog
+* Sun Jun 03 2018 Sérgio Basto <sergio@serjux.com> - 2.3.2-12
+- Move to compat-wxGTK3-gtk2 and add Debian patch for libupnp1.8
+
 * Tue Apr 17 2018 Nicolas Chauvet <kwizart@gmail.com> - 2.3.2-11
 - Rebuilt for libupnp
 
