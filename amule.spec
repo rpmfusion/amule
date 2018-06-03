@@ -7,7 +7,7 @@
 
 Name:           amule
 Version:        2.3.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name}-%{version}.tar.gz
@@ -15,7 +15,11 @@ Patch1:         https://github.com/amule-project/amule/pull/120.patch
 Patch2:         libupnp1.8.patch
 URL:            http://amule.org
 # See http://www.amule.org/wiki/index.php/Requirements
+%if 0%{?fedora} > 27 || 0%{?rhel} > 7
 BuildRequires:  compat-wxGTK3-gtk2-devel
+%else
+BuildRequires:  wxGTK-devel >= 0:2.8.7
+%endif
 BuildRequires:  desktop-file-utils
 BuildRequires:  expat-devel
 BuildRequires:  gd-devel >= 2.0.0
@@ -49,7 +53,11 @@ It is useful for servers which don't have Xorg.
 
 
 %prep
-%autosetup -p1
+%setup -q
+%patch1 -p1
+%if 0%{?fedora}
+%patch2 -p1 -b .libupnp1.8
+%endif
 
 %build
 ./autogen.sh
@@ -152,6 +160,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/COPYING
 
 
 %changelog
+* Sun Jun 03 2018 Sérgio Basto <sergio@serjux.com> - 2.3.2-13
+- el7 compat
+
 * Sun Jun 03 2018 Sérgio Basto <sergio@serjux.com> - 2.3.2-12
 - Move to compat-wxGTK3-gtk2 and add Debian patch for libupnp1.8
 
