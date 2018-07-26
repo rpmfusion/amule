@@ -7,7 +7,7 @@
 
 Name:           amule
 Version:        2.3.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name}-%{version}.tar.gz
@@ -156,6 +156,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/COPYING
 
 
 %changelog
+* Thu Jul 26 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.3.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Mon Jun 11 2018 Sérgio Basto <sergio@serjux.com> - 2.3.2-14
 - Amule also have issues with compat-wxGTK3-gtk2, revert to wxGTK
 
