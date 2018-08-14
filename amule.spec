@@ -7,7 +7,7 @@
 
 Name:           amule
 Version:        2.3.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name}-%{version}.tar.gz
@@ -156,6 +156,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/COPYING
 
 
 %changelog
+* Tue Aug 14 2018 Nicolas Chauvet <kwizart@gmail.com> - 2.3.2-16
+- Rebuilt for cryptopp
+
 * Thu Jul 26 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.3.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
