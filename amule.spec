@@ -15,7 +15,7 @@ Patch1:         https://github.com/amule-project/amule/pull/120.patch
 Patch2:         libupnp1.8.patch
 URL:            http://amule.org
 # See http://www.amule.org/wiki/index.php/Requirements
-BuildRequires:  wxGTK-devel >= 0:2.8.7
+BuildRequires:  wxGTK3-devel >= 0:2.8.7
 BuildRequires:  desktop-file-utils
 BuildRequires:  expat-devel
 BuildRequires:  gd-devel >= 2.0.0
@@ -158,6 +158,7 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/COPYING
 %changelog
 * Sat Mar 02 2019 Nicolas Chauvet <kwizart@gmail.com> - 2.3.2-17
 - Rebuilt for cryptopp
+- Switch to wxGTK3
 
 * Tue Aug 14 2018 Nicolas Chauvet <kwizart@gmail.com> - 2.3.2-16
 - Rebuilt for cryptopp
