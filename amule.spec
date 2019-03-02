@@ -15,6 +15,9 @@ Patch1:         https://github.com/amule-project/amule/pull/120.patch
 Patch2:         libupnp1.8.patch
 URL:            http://amule.org
 # See http://www.amule.org/wiki/index.php/Requirements
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
+
 BuildRequires:  wxGTK3-devel >= 0:2.8.7
 BuildRequires:  desktop-file-utils
 BuildRequires:  expat-devel
