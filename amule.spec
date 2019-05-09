@@ -1,24 +1,24 @@
 # TODO: setup firefox for ed2k links using triggers and a file in /usr/lib/firefox-3.0.1/defaults/preferences/
 #global _hardened_build 1
 
-#globals for https://github.com/amule-project/amule/commit/88aa0231f0c06023b32cba0d5a3871d418bb0f1f
-#global commit1 88aa0231f0c06023b32cba0d5a3871d418bb0f1f
-#global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
+#globals for https://github.com/amule-project/amule/commit/20afd75fa0d7befb1e9e29af91f22b7df58cfa1a
+#global commit1 20afd75fa0d7befb1e9e29af91f22b7df58cfa1a
+#global shortcommit1 %%(c=%%{commit1}; echo ${c:0:7})
 
 Name:           amule
 Version:        2.3.2
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name}-%{version}.tar.gz
 Patch1:         https://github.com/amule-project/amule/pull/120.patch
 Patch2:         libupnp1.8.patch
 URL:            http://amule.org
-# See http://www.amule.org/wiki/index.php/Requirements
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 
-BuildRequires:  wxGTK3-devel >= 0:2.8.7
+# See http://wiki.amule.org/wiki/Requirements
+BuildRequires:  compat-wxGTK3-gtk2-devel >= 0:2.8.7
 BuildRequires:  desktop-file-utils
 BuildRequires:  expat-devel
 BuildRequires:  gd-devel >= 2.0.0
@@ -76,6 +76,9 @@ It is useful for servers which don't have Xorg.
     --enable-amule-gui \
     --enable-optimize \
     --enable-nls \
+%if (0%{?fedora} && 0%{?fedora} < 28)
+    --with-wx-version=3.0-gtk2 \
+%endif
     --with-denoise-level=0
 
 %make_build
@@ -159,6 +162,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/COPYING
 
 
 %changelog
+* Sun Apr 14 2019 Sérgio Basto <sergio@serjux.com> - 2.3.2-18
+- Use wxGTK3-gtk2 since with gtk3 is crashing (#5197)
+
 * Sat Mar 02 2019 Nicolas Chauvet <kwizart@gmail.com> - 2.3.2-17
 - Rebuilt for cryptopp
 - Switch to wxGTK3
