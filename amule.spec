@@ -3,7 +3,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           amule
-Version:        2.3.2
+Version:        2.3.3
 Release:        0.1.%{gitdate}git%{shortcommit}%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
@@ -153,7 +153,7 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/COPYING
 
 
 %changelog
-* Fri Feb 28 2020 leigh123linux <leigh123linux@googlemail.com> - 2.3.2-0.1.20200131gitc0c2823
+* Fri Feb 28 2020 leigh123linux <leigh123linux@googlemail.com> - 2.3.3-0.1.20200131gitc0c2823
 - Update to the latest git snapshot
 
 * Tue Feb 04 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.3.2-20
