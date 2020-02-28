@@ -1,18 +1,13 @@
-# TODO: setup firefox for ed2k links using triggers and a file in /usr/lib/firefox-3.0.1/defaults/preferences/
-#global _hardened_build 1
-
-#globals for https://github.com/amule-project/amule/commit/20afd75fa0d7befb1e9e29af91f22b7df58cfa1a
-#global commit1 20afd75fa0d7befb1e9e29af91f22b7df58cfa1a
-#global shortcommit1 %%(c=%%{commit1}; echo ${c:0:7})
+%global commit c0c28234a40b1b575ce51cdfe5ffa5dac3a7494c	
+%global gitdate 20200131	
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           amule
 Version:        2.3.2
-Release:        20%{?dist}
+Release:        0.1.%{gitdate}git%{shortcommit}%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
-Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name}-%{version}.tar.gz
-Patch1:         https://github.com/amule-project/amule/pull/120.patch
-Patch2:         libupnp1.8.patch
+Source0:        https://github.com/amule-project/amule/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 URL:            http://amule.org
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -52,11 +47,7 @@ It is useful for servers which don't have Xorg.
 
 
 %prep
-%setup -q
-%patch1 -p1
-%if 0%{?fedora} > 28
-%patch2 -p1 -b .libupnp1.8
-%endif
+%setup -q -n %{name}-%{commit}
 
 %build
 ./autogen.sh
@@ -162,6 +153,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/COPYING
 
 
 %changelog
+* Fri Feb 28 2020 leigh123linux <leigh123linux@googlemail.com> - 2.3.2-0.1.20200131gitc0c2823
+- Update to the latest git snapshot
+
 * Tue Feb 04 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.3.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
