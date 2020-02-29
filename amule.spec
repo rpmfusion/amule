@@ -4,7 +4,7 @@
 
 Name:           amule
 Version:        2.3.3
-Release:        0.1.%{gitdate}git%{shortcommit}%{?dist}
+Release:        0.2.%{gitdate}git%{shortcommit}%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Source0:        https://github.com/amule-project/amule/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -13,20 +13,23 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 
 # See http://wiki.amule.org/wiki/Requirements
-BuildRequires:  compat-wxGTK3-gtk2-devel >= 0:2.8.7
+BuildRequires:  wxGTK3-devel >= 0:2.8.7
 BuildRequires:  desktop-file-utils
+BuildRequires:  binutils-devel
+BuildRequires:  boost-devel
 BuildRequires:  expat-devel
-BuildRequires:  gd-devel >= 2.0.0
-BuildRequires:  libpng-devel
+BuildRequires:  pkgconfig(gdlib) >= 2.0
+BuildRequires:  pkgconfig(libpng)
 BuildRequires:  gettext-devel
 BuildRequires:  flex
 BuildRequires:  bison
 BuildRequires:  readline-devel
-BuildRequires:  cryptopp-devel
-BuildRequires:  libupnp-devel
-BuildRequires:  binutils-devel
-BuildRequires:  GeoIP-devel
+BuildRequires:  pkgconfig(cryptopp)
+BuildRequires:  pkgconfig(libupnp)
+BuildRequires:  pkgconfig(geoip)
 BuildRequires:  libtool
+BuildRequires:  pkgconfig(libcurl)
+BuildRequires:  pkgconfig(ncurses)
 
 Requires:       %{name}-nogui
 
@@ -63,13 +66,11 @@ It is useful for servers which don't have Xorg.
     --enable-webserver \
     --enable-amule-daemon \
     --enable-geoip \
-    --enable-ccache \
     --enable-amule-gui \
     --enable-optimize \
     --enable-nls \
-%if (0%{?fedora} && 0%{?fedora} < 28)
-    --with-wx-version=3.0-gtk2 \
-%endif
+    --with-wx-config=%{_bindir}/wx-config-3.0 \
+    --with-boost \
     --with-denoise-level=0
 
 %make_build
@@ -153,6 +154,10 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/COPYING
 
 
 %changelog
+* Sat Feb 29 2020 Sérgio Basto <sergio@serjux.com> - 2.3.3-0.2.20200131gitc0c2823
+- Some changes based on Mageia spec
+- Let's try wxGTK with GTK3 instead GTK2
+
 * Fri Feb 28 2020 leigh123linux <leigh123linux@googlemail.com> - 2.3.3-0.1.20200131gitc0c2823
 - Update to the latest git snapshot
 
