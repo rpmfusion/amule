@@ -4,10 +4,11 @@
 
 Name:           amule
 Version:        2.3.3
-Release:        0.2.%{gitdate}git%{shortcommit}%{?dist}
+Release:        0.3.%{gitdate}git%{shortcommit}%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Source0:        https://github.com/amule-project/amule/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source2:        %{name}.appdata.xml
 URL:            http://amule.org
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -108,6 +109,7 @@ desktop-file-install --vendor "" \
 rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/INSTALL
 rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/COPYING
 
+install -P -m 0644 -D %{SOURCE2} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 
 %files -f %{name}.lang
@@ -133,6 +135,7 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/COPYING
 %{_mandir}/man1/amulegui.1.gz
 %{_mandir}/*/man1/amulegui.1.gz
 %exclude %{_datadir}/%{name}/webserver
+%{_metainfodir}/%{name}.appdata.xml
 
 %files nogui
 %{_bindir}/alcc
@@ -154,6 +157,10 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/COPYING
 
 
 %changelog
+* Sun Mar 01 2020 Sérgio Basto <sergio@serjux.com> - 2.3.3-0.3.20200131gitc0c2823
+- Add appdata file, copied from
+  https://github.com/sanjayankur31/rpmfusion-appdata
+
 * Sat Feb 29 2020 Sérgio Basto <sergio@serjux.com> - 2.3.3-0.2.20200131gitc0c2823
 - Some changes based on Mageia spec
 - Let's try wxGTK with GTK3 instead GTK2
