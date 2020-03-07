@@ -109,7 +109,7 @@ desktop-file-install --vendor "" \
 rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/INSTALL
 rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/COPYING
 
-install -P -m 0644 -D %{SOURCE2} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
+install -m 0644 -D %{SOURCE2} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 
 %files -f %{name}.lang
