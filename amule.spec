@@ -1,10 +1,10 @@
-%global commit c0c28234a40b1b575ce51cdfe5ffa5dac3a7494c	
-%global gitdate 20200131	
+%global commit 0e9e3efce05c30c916a2d4fdc4fbf1a940efefb4
+%global gitdate 20201122
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           amule
 Version:        2.3.3
-Release:        0.6.%{gitdate}git%{shortcommit}%{?dist}
+Release:        0.7.%{gitdate}git%{shortcommit}%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Source0:        https://github.com/amule-project/amule/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -157,8 +157,8 @@ install -m 0644 -D %{SOURCE2} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 
 %changelog
-* Fri Jan  1 2021 Nicolas Chauvet <kwizart@gmail.com> - 2.3.3-0.6.20200131gitc0c2823
-- Rebuilt
+* Fri Jan  1 2021 Nicolas Chauvet <kwizart@gmail.com> - 2.3.3-0.7.20201122git0e9e3ef
+- Update snapshot
 
 * Mon Aug 17 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.3.3-0.5.20200131gitc0c2823
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
