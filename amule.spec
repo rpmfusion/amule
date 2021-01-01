@@ -54,6 +54,11 @@ It is useful for servers which don't have Xorg.
 %setup -q -n %{name}-%{commit}
 
 %build
+# Downgrade to c++14 to avoid conflict with std::byte
+# https://github.com/amule-project/amule/issues/233
+%if 0%{?fedora} > 33 || 0%{?rhel} > 8
+export CXXFLAGS="%{optflags} -std=c++14"
+%endif
 ./autogen.sh
 %configure \
     --disable-rpath \
