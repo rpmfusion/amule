@@ -1,13 +1,9 @@
-%global commit 0e9e3efce05c30c916a2d4fdc4fbf1a940efefb4
-%global gitdate 20201122
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Name:           amule
 Version:        2.3.3
-Release:        0.9.%{gitdate}git%{shortcommit}%{?dist}
+Release:        1%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
-Source0:        https://github.com/amule-project/amule/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name}-%{version}.tar.gz
 Source2:        %{name}.appdata.xml
 URL:            http://amule.org
 BuildRequires:  gcc
@@ -28,6 +24,7 @@ BuildRequires:  readline-devel
 BuildRequires:  pkgconfig(cryptopp)
 BuildRequires:  pkgconfig(libupnp)
 BuildRequires:  pkgconfig(geoip)
+BuildRequires:  libappstream-glib
 BuildRequires:  libtool
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(ncurses)
@@ -51,7 +48,7 @@ It is useful for servers which don't have Xorg.
 
 
 %prep
-%setup -q -n %{name}-%{commit}
+%autosetup
 
 %build
 # Downgrade to c++14 to avoid conflict with std::byte
@@ -115,6 +112,7 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/INSTALL
 rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/COPYING
 
 install -m 0644 -D %{SOURCE2} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 
 %files -f %{name}.lang
@@ -129,16 +127,16 @@ install -m 0644 -D %{SOURCE2} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 %{_datadir}/cas
 %{_datadir}/applications/*.desktop
 %{_datadir}/pixmaps/*
-%{_mandir}/man1/alc.1.gz
-%{_mandir}/*/man1/alc.1.gz
-%{_mandir}/man1/amule.1.gz
-%{_mandir}/*/man1/amule.1.gz
-%{_mandir}/man1/cas.1.gz
-%{_mandir}/*/man1/cas.1.gz
-%{_mandir}/man1/wxcas.1.gz
-%{_mandir}/*/man1/wxcas.1.gz
-%{_mandir}/man1/amulegui.1.gz
-%{_mandir}/*/man1/amulegui.1.gz
+%{_mandir}/man1/alc.1.*
+%{_mandir}/*/man1/alc.1.*
+%{_mandir}/man1/amule.1.*
+%{_mandir}/*/man1/amule.1.*
+%{_mandir}/man1/cas.1.*
+%{_mandir}/*/man1/cas.1.*
+%{_mandir}/man1/wxcas.1.*
+%{_mandir}/*/man1/wxcas.1.*
+%{_mandir}/man1/amulegui.1.*
+%{_mandir}/*/man1/amulegui.1.*
 %exclude %{_datadir}/%{name}/webserver
 %{_metainfodir}/%{name}.appdata.xml
 
@@ -149,19 +147,22 @@ install -m 0644 -D %{SOURCE2} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 %{_bindir}/amuleweb
 %{_bindir}/ed2k
 %{_datadir}/%{name}/webserver
-%{_mandir}/man1/alcc.1.gz
-%{_mandir}/*/man1/alcc.1.gz
-%{_mandir}/man1/amulecmd.1.gz
-%{_mandir}/*/man1/amulecmd.1.gz
-%{_mandir}/man1/amuled.1.gz
-%{_mandir}/*/man1/amuled.1.gz
-%{_mandir}/man1/amuleweb.1.gz
-%{_mandir}/*/man1/amuleweb.1.gz
-%{_mandir}/man1/ed2k.1.gz
-%{_mandir}/*/man1/ed2k.1.gz
+%{_mandir}/man1/alcc.1.*
+%{_mandir}/*/man1/alcc.1.*
+%{_mandir}/man1/amulecmd.1.*
+%{_mandir}/*/man1/amulecmd.1.*
+%{_mandir}/man1/amuled.1.*
+%{_mandir}/*/man1/amuled.1.*
+%{_mandir}/man1/amuleweb.1.*
+%{_mandir}/*/man1/amuleweb.1.*
+%{_mandir}/man1/ed2k.1.*
+%{_mandir}/*/man1/ed2k.1.*
 
 
 %changelog
+* Thu Feb 18 2021 Leigh Scott <leigh123linux@gmail.com> - 2.3.3-1
+- New upstream release
+
 * Thu Feb 11 2021 Nicolas Chauvet <kwizart@gmail.com> - 2.3.3-0.9.20201122git0e9e3ef
 - Rebuilt
 
