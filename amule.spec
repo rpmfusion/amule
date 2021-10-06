@@ -1,15 +1,15 @@
 Name:           amule
 Version:        2.3.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name}-%{version}.tar.gz
 Source2:        %{name}.appdata.xml
 URL:            http://amule.org
-BuildRequires:  gcc
-BuildRequires:  gcc-c++
+Patch1:         298.patch
 
 # See http://wiki.amule.org/wiki/Requirements
+BuildRequires:  gcc-c++
 BuildRequires:  wxGTK3-devel >= 0:2.8.7
 BuildRequires:  desktop-file-utils
 BuildRequires:  binutils-devel
@@ -21,7 +21,7 @@ BuildRequires:  gettext-devel
 BuildRequires:  flex
 BuildRequires:  bison
 BuildRequires:  readline-devel
-BuildRequires:  pkgconfig(cryptopp)
+BuildRequires:  pkgconfig(cryptopp) >= 8.6.0
 BuildRequires:  pkgconfig(libupnp)
 BuildRequires:  pkgconfig(geoip)
 BuildRequires:  libappstream-glib
@@ -30,6 +30,7 @@ BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(ncurses)
 
 Requires:       %{name}-nogui
+Requires:       cryptopp >= 8.6.0
 
 %description
 aMule is an easy to use multi-platform client for ED2K Peer-to-Peer
@@ -48,7 +49,7 @@ It is useful for servers which don't have Xorg.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 # Downgrade to c++14 to avoid conflict with std::byte
@@ -160,6 +161,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Wed Oct 06 2021 Sérgio Basto <sergio@serjux.com> - 2.3.3-4
+- PR 298 from upstream to allow build with autoconf 2.71
+- Force build and install cryptopp >= 8.6.0 to avoid crashs
+- gcc-c++ installs gcc by default
+
 * Tue Oct 05 2021 Sérgio Basto <sergio@serjux.com> - 2.3.3-3
 - Rebuild for cryptopp update from 8.4.0 to 8.6.0
 
