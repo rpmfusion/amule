@@ -21,7 +21,7 @@ BuildRequires:  gettext-devel
 BuildRequires:  flex
 BuildRequires:  bison
 BuildRequires:  readline-devel
-BuildRequires:  pkgconfig(cryptopp) >= 8.6.0
+BuildRequires:  pkgconfig(cryptopp)
 BuildRequires:  pkgconfig(libupnp)
 BuildRequires:  pkgconfig(geoip)
 BuildRequires:  libappstream-glib
@@ -30,7 +30,6 @@ BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(ncurses)
 
 Requires:       %{name}-nogui
-Requires:       cryptopp >= 8.6.0
 
 %description
 aMule is an easy to use multi-platform client for ED2K Peer-to-Peer
