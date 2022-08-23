@@ -1,6 +1,6 @@
 Name:           amule
 Version:        2.3.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name}-%{version}.tar.gz
@@ -10,7 +10,7 @@ Patch1:         298.patch
 
 # See http://wiki.amule.org/wiki/Requirements
 BuildRequires:  gcc-c++
-BuildRequires:  wxGTK3-devel >= 0:2.8.7
+BuildRequires:  wxGTK-devel >= 3.1.0
 BuildRequires:  desktop-file-utils
 BuildRequires:  binutils-devel
 BuildRequires:  boost-devel
@@ -51,11 +51,6 @@ It is useful for servers which don't have Xorg.
 %autosetup -p1
 
 %build
-# Downgrade to c++14 to avoid conflict with std::byte
-# https://github.com/amule-project/amule/issues/233
-%if 0%{?fedora} > 33 || 0%{?rhel} > 8
-export CXXFLAGS="%{optflags} -std=c++14"
-%endif
 ./autogen.sh
 %configure \
     --disable-rpath \
@@ -72,7 +67,6 @@ export CXXFLAGS="%{optflags} -std=c++14"
     --enable-amule-gui \
     --enable-optimize \
     --enable-nls \
-    --with-wx-config=%{_bindir}/wx-config-3.0 \
     --with-boost \
     --with-denoise-level=0
 
@@ -160,6 +154,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Tue Aug 23 2022 Sérgio Basto <sergio@serjux.com> - 2.3.3-7
+- Rebuild with wxWidgets 3.2
+- Conflict with std::byte is fixed in 2.3.3
+
 * Sat Aug 06 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 2.3.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild and ffmpeg
   5.1
