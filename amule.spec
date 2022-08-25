@@ -1,6 +1,6 @@
 Name:           amule
 Version:        2.3.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name}-%{version}.tar.gz
@@ -10,7 +10,7 @@ Patch1:         298.patch
 
 # See http://wiki.amule.org/wiki/Requirements
 BuildRequires:  gcc-c++
-BuildRequires:  wxGTK-devel >= 3.1.0
+BuildRequires:  wxGTK3-devel >= 3.0.5
 BuildRequires:  desktop-file-utils
 BuildRequires:  binutils-devel
 BuildRequires:  boost-devel
@@ -154,6 +154,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Thu Aug 25 2022 Sérgio Basto <sergio@serjux.com> - 2.3.3-8
+- Rollback to wx 3.0.5
+
 * Tue Aug 23 2022 Sérgio Basto <sergio@serjux.com> - 2.3.3-7
 - Rebuild with wxWidgets 3.2
 - Conflict with std::byte is fixed in 2.3.3
