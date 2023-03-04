@@ -1,6 +1,6 @@
 Name:           amule
 Version:        2.3.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name}-%{version}.tar.gz
@@ -10,7 +10,11 @@ Patch1:         298.patch
 
 # See http://wiki.amule.org/wiki/Requirements
 BuildRequires:  gcc-c++
+%if 0%{?fedora} > 38
+BuildRequires:  wxGTK-devel >= 3.0.5
+%else
 BuildRequires:  wxGTK3-devel >= 3.0.5
+%endif
 BuildRequires:  desktop-file-utils
 BuildRequires:  binutils-devel
 BuildRequires:  boost-devel
@@ -154,6 +158,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Sat Mar 04 2023 Leigh Scott <leigh123linux@gmail.com> - 2.3.3-9
+- Rebuild due to wxGTK3-devel retirement (f39)
+
 * Thu Aug 25 2022 Sérgio Basto <sergio@serjux.com> - 2.3.3-8
 - Rollback to wx 3.0.5
 
