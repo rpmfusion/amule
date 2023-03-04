@@ -1,12 +1,13 @@
 Name:           amule
 Version:        2.3.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name}-%{version}.tar.gz
 Source2:        %{name}.appdata.xml
 URL:            http://amule.org
-Patch1:         298.patch
+Patch0:         298.patch
+Patch1:         https://git.alpinelinux.org/aports/tree/testing/amule/wxwidgets-3.2.patch
 
 # See http://wiki.amule.org/wiki/Requirements
 BuildRequires:  gcc-c++
@@ -158,6 +159,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Sat Mar 04 2023 Leigh Scott <leigh123linux@gmail.com> - 2.3.3-10
+- Add patch for wx-3.2
+
 * Sat Mar 04 2023 Leigh Scott <leigh123linux@gmail.com> - 2.3.3-9
 - Rebuild due to wxGTK3-devel retirement (f39)
 
