@@ -7,7 +7,7 @@ Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name
 Source2:        %{name}.appdata.xml
 URL:            http://amule.org
 Patch0:         298.patch
-Patch1:         https://git.alpinelinux.org/aports/tree/testing/amule/wxwidgets-3.2.patch
+Patch1:         https://git.alpinelinux.org/aports/plain/testing/amule/wxwidgets-3.2.patch
 Patch2:         https://sources.debian.org/data/main/a/amule/1%3A2.3.3-3/debian/patches/wx3.2.patch
 
 # See http://wiki.amule.org/wiki/Requirements
