@@ -27,7 +27,11 @@ BuildRequires:  gettext-devel
 BuildRequires:  flex
 BuildRequires:  bison
 BuildRequires:  readline-devel
+%if 0%{?fedora} > 38
+BuildRequires:  pkgconfig(libcryptopp)
+%else
 BuildRequires:  pkgconfig(cryptopp)
+%endif
 BuildRequires:  pkgconfig(libupnp)
 BuildRequires:  pkgconfig(geoip)
 BuildRequires:  libappstream-glib
@@ -162,6 +166,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %changelog
 * Sat Feb 03 2024 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 2.3.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+- Fix BR libcryptopp for Fedora 39+
 
 * Wed Aug 02 2023 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 2.3.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
