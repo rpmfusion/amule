@@ -1,6 +1,6 @@
 Name:           amule
 Version:        2.3.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name}-%{version}.tar.gz
@@ -164,6 +164,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Thu Aug 01 2024 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 2.3.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
+
 * Sat Feb 03 2024 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 2.3.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 - Fix BR libcryptopp for Fedora 39+
