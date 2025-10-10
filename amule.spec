@@ -1,6 +1,6 @@
 Name:           amule
 Version:        2.3.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name}-%{version}.tar.gz
@@ -61,6 +61,12 @@ It is useful for servers which don't have Xorg.
 %autosetup -p1
 
 %build
+%if 0%{?fedora} >= 43
+# autopoint (in gettext) 0.25 and above no longer prefers
+# intl directory
+sed -i Makefile.am -e '\@^SUBDIRS@s|intl | |'
+sed -i configure.ac -e '\@intl/Makefile@d'
+%endif
 ./autogen.sh
 %configure \
     --disable-rpath \
@@ -164,6 +170,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Thu Oct 09 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.3-16
+- Fix build with autopoint 0.25 and above
+
 * Sat Jul 26 2025 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 2.3.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
