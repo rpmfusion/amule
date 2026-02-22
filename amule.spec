@@ -1,41 +1,41 @@
+%global commit 9ceeaa68b9727fa38efd9ddcf774b20d39d5a200
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
+%global _lto_cflags %{nil}
+#global _pkg_extra_ldflags "-Wl,-z,notext"
+
 Name:           amule
 Version:        2.3.3
 Release:        18%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
-Source0:        https://github.com/amule-project/amule/archive/%{version}/%{name}-%{version}.tar.gz
-Source2:        %{name}.appdata.xml
-URL:            http://amule.org
-Patch0:         298.patch
-Patch1:         https://git.alpinelinux.org/aports/plain/testing/amule/wxwidgets-3.2.patch
-Patch2:         https://sources.debian.org/data/main/a/amule/1%3A2.3.3-3/debian/patches/wx3.2.patch
+#Source0:        https://github.com/amule-project/amule/archive/%%{version}/%%{name}-%%{version}.tar.gz
+Source0:        https://github.com/amule-project/amule/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
+URL:            https://www.amule.org
+Patch6:         413.patch
+Patch8:         423.patch
+Patch9:         boost.patch
+Patch10:        metainfo.patch
 
 # See http://wiki.amule.org/wiki/Requirements
+BuildRequires:  bison
+BuildRequires:  flex
 BuildRequires:  gcc-c++
-%if 0%{?fedora} > 38
+BuildRequires:  gettext
+#BuildRequires:  intltool
+BuildRequires:  libappstream-glib
+BuildRequires:  libtool
 BuildRequires:  wxGTK-devel >= 3.0.5
-%else
-BuildRequires:  wxGTK3-devel >= 3.0.5
-%endif
 BuildRequires:  desktop-file-utils
 BuildRequires:  binutils-devel
 BuildRequires:  boost-devel
 BuildRequires:  expat-devel
 BuildRequires:  pkgconfig(gdlib) >= 2.0
 BuildRequires:  pkgconfig(libpng)
-BuildRequires:  gettext-devel
-BuildRequires:  flex
-BuildRequires:  bison
 BuildRequires:  readline-devel
-%if 0%{?fedora} > 38
 BuildRequires:  pkgconfig(libcryptopp)
-%else
-BuildRequires:  pkgconfig(cryptopp)
-%endif
 BuildRequires:  pkgconfig(libupnp)
 BuildRequires:  pkgconfig(geoip)
-BuildRequires:  libappstream-glib
-BuildRequires:  libtool
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(ncurses)
 
@@ -58,15 +58,9 @@ It is useful for servers which don't have Xorg.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{commit}
 
 %build
-%if 0%{?fedora} >= 43
-# autopoint (in gettext) 0.25 and above no longer prefers
-# intl directory
-sed -i Makefile.am -e '\@^SUBDIRS@s|intl | |'
-sed -i configure.ac -e '\@intl/Makefile@d'
-%endif
 ./autogen.sh
 %configure \
     --disable-rpath \
@@ -121,8 +115,7 @@ desktop-file-install --vendor "" \
 rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/INSTALL
 rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/COPYING
 
-install -m 0644 -D %{SOURCE2} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.amule.amule.metainfo.xml
 
 
 %files -f %{name}.lang
@@ -148,7 +141,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_mandir}/man1/amulegui.1.*
 %{_mandir}/*/man1/amulegui.1.*
 %exclude %{_datadir}/%{name}/webserver
-%{_metainfodir}/%{name}.appdata.xml
+%{_metainfodir}/org.amule.amule.metainfo.xml
 
 %files nogui
 %{_bindir}/alcc
@@ -170,7 +163,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
-* Mon Feb 16 2026 Nicolas Chauvet <kwizart@gmail.com> - 2.3.3-18
+* Sun Feb 22 2026 Sérgio Basto <sergio@serjux.com> - 2.3.3-18
+- Switch to a GitHub snapshot, as it has become too complicated to maintain the
+  release with patches
+
+* Mon Feb 16 2026 Nicolas Chauvet <kwizart@gmail.com>
 - Rebuilt
 
 * Mon Feb 02 2026 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 2.3.3-17
