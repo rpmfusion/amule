@@ -1,20 +1,19 @@
-%global commit 9ceeaa68b9727fa38efd9ddcf774b20d39d5a200
+%global commit e75280d451d8efaaeabe99ccaa4d539324e6ddfe
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global commitdate 20260223
 
 %global _lto_cflags %{nil}
 #global _pkg_extra_ldflags "-Wl,-z,notext"
 
 Name:           amule
-Version:        2.3.3
-Release:        18%{?dist}
+Version:        2.3.3^%{commitdate}git%{shortcommit}
+Release:        19%{?dist}
 Summary:        File sharing client compatible with eDonkey
 License:        GPLv2+
 #Source0:        https://github.com/amule-project/amule/archive/%%{version}/%%{name}-%%{version}.tar.gz
-Source0:        https://github.com/amule-project/amule/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
+Source0:        https://github.com/amule-project/amule/archive/%{commit}/%{name}-%{version}.tar.gz
 URL:            https://www.amule.org
 Patch6:         413.patch
-Patch8:         423.patch
-Patch9:         boost.patch
 Patch10:        metainfo.patch
 
 # See http://wiki.amule.org/wiki/Requirements
@@ -25,7 +24,7 @@ BuildRequires:  gettext
 #BuildRequires:  intltool
 BuildRequires:  libappstream-glib
 BuildRequires:  libtool
-BuildRequires:  wxGTK-devel >= 3.0.5
+BuildRequires:  wxGTK-devel >= 3.2.0
 BuildRequires:  desktop-file-utils
 BuildRequires:  binutils-devel
 BuildRequires:  boost-devel
@@ -163,6 +162,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.amule.amul
 
 
 %changelog
+* Mon Feb 23 2026 Sérgio Basto <sergio@serjux.com> - 2.3.3^20260223gite75280d-19
+- Update GitHub snapshot; one patch merged upstream and additional security patches added.
+
 * Sun Feb 22 2026 Sérgio Basto <sergio@serjux.com> - 2.3.3-18
 - Switch to a GitHub snapshot, as it has become too complicated to maintain the
   release with patches
